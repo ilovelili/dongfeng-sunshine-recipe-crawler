@@ -145,5 +145,5 @@ function resolvefilename(target_url) {
     if (segments.length != 2) {
         return '';
     }
-    return segments[1] + '.xls';
+    return segments[1] + '.xlsx';
 }
