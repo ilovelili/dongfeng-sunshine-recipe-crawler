@@ -1,6 +1,6 @@
-# DongFeng sunshine menu crawler
+# DongFeng sunshine recipe crawler
 
-Menu crawler is a headless crawler aims to download the menu recipes provided by Sunshine menu.
+Recipe crawler is a headless crawler aims to download the recipes provided by Sunshinelunch system.
 
 ## Dependencies
 
