@@ -68,7 +68,7 @@ casper.on('error', function (msg) {
 });
 
 casper.on('run.complete', function () {
-    this.echo('Completed');
+    this.echo('completed');
     this.exit();
 });
 
