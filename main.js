@@ -36,7 +36,7 @@ casper.then(function open() {
         this.each(previewlinks, function (self, preview_url) {
             self.thenOpen(preview_url, function () {
                 if (self.exists('.product__item')) {
-                    let segments = preview_url.split('supplyDateMenu=');
+                    var segments = preview_url.split('supplyDateMenu=');
                     if (segments.length != 2) {
                         return;
                     }
@@ -90,11 +90,11 @@ casper.on('resource.received', function (resource) {
 
 // ------------------------ helpers ------------------------
 function formatMonth(date) {
-    let d = new Date();
+    var d = new Date();
     if (date instanceof Date) {
         d = new Date(date);
     }
-    let month = '' + (d.getMonth() + 1),
+    var month = '' + (d.getMonth() + 1),
         year = d.getFullYear();
 
     if (month.length < 2) month = '0' + month;
@@ -102,11 +102,11 @@ function formatMonth(date) {
 }
 
 function formatDate(date) {
-    let d = new Date(date);
+    var d = new Date(date);
     if (date instanceof Date) {
         d = new Date(date);
     }
-    let month = '' + (d.getMonth() + 1),
+    var month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),
         year = d.getFullYear();
 
@@ -117,7 +117,7 @@ function formatDate(date) {
 }
 
 function resolvepreviewlinks() {
-    let links = [];
+    var links = [];
     const year = target_month.split('-')[0],
         month = target_month.split('-')[1] - 1,
         firstDay = new Date(year, month, 1),
