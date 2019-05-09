@@ -30,7 +30,7 @@ casper.start(url, function login() {
 });
 
 casper.then(function open() {
-    this.echo(`step 2. download`);
+    this.echo('step 2. download');
     this.waitForText('食安追溯', function () {
         // loop by date
         this.each(previewlinks, function (self, preview_url) {
@@ -42,7 +42,7 @@ casper.then(function open() {
                     }
 
                     target_url = resolvedownloadlink(segments[1]);
-                    self.echo(`target url is ${target_url}`);
+                    self.echo('target url is ' + target_url);
                     self.thenOpen(target_url, function download() {
                         self.waitForSelector('a.btn1', function () {
                             // this.capture('screenshots/export.png');
@@ -76,11 +76,11 @@ casper.on('run.complete', function () {
 casper.on('resource.received', function (resource) {
     if ((resource.url.indexOf('exportAllWares.htm?schoolIdstr=') !== -1)) {
         const url = resource.url, file = resolvefilename(url);
-        this.echo(`download url is ${url}`)
-        this.echo(`download file is ${file}`)
+        this.echo('download url is ' + url);
+        this.echo('download file is ' + file);
         try {
             const download = fs.pathJoin(fs.workingDirectory, 'output', file);
-            this.echo(`attempting to download file to ${download}`);
+            this.echo('attempting to download file to ' + download);
             this.download(url, download);
         } catch (e) {
             this.echo(e);
@@ -145,5 +145,5 @@ function resolvefilename(target_url) {
     if (segments.length != 2) {
         return '';
     }
-    return segments[1] + '.xlsx';
+    return segments[1] + '.xls';
 }
