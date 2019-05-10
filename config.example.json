@@ -5,5 +5,6 @@
     "preview_url_placeholder": "http://www.sunshinelunch.com/trace/selectVoteDishes.htm?schoolIdMenu=33639971-a781-4f62-b1c9-8e29b5ad2e31&supplyDateMenu={{time}}",
     "target_url_placeholder": "http://www.sunshinelunch.com/trace/selectVoteDishes.htm?schoolIdMenu=33639971-a781-4f62-b1c9-8e29b5ad2e31&supplyDateMenu={{time}}",
     "start_month": "2018-09",
-    "end_month": "2018-10"
+    "end_month": "2018-10",
+    "daily_run": true
 }

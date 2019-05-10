@@ -16,6 +16,7 @@ const casper = require('casper').create({
     username = config['username'],
     password = config['password'],
     fs = require('fs'),
+    daily_run = config['daily_run'],
     previewlinks = resolvepreviewlinks();
 
 casper.userAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36');
@@ -119,6 +120,15 @@ function formatDate(date) {
 
 function resolvepreviewlinks() {
     var links = [];
+
+    // if daily run, get today's csv
+    if (daily_run) {
+        var d = new Date();
+        preview_url = preview_url_placeholder.replace(new RegExp('{{time}}', 'g'), formatDate(d));
+        links.push(preview_url);
+        return links;
+    }
+
     const start = new Date(start_month.split('-')[0], start_month.split('-')[1]),
         end = new Date(end_month.split('-')[0], end_month.split('-')[1]);
 
