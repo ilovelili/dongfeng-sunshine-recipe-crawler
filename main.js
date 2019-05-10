@@ -8,7 +8,8 @@ const casper = require('casper').create({
     }
 }),
     config = require('config.json'),
-    target_month = config['target_month'] || formatMonth(),
+    start_month = config['start_month'] || formatMonth(),
+    end_month = config['end_month'] || formatMonth(),
     preview_url_placeholder = config['preview_url_placeholder'],
     target_url_placeholder = config['target_url_placeholder'],
     url = config['url'],
@@ -118,19 +119,25 @@ function formatDate(date) {
 
 function resolvepreviewlinks() {
     var links = [];
-    const year = target_month.split('-')[0],
-        month = target_month.split('-')[1] - 1,
-        firstDay = new Date(year, month, 1),
-        lastDay = new Date(year, month + 1, 0),
-        today = new Date();
+    const start = new Date(start_month.split('-')[0], start_month.split('-')[1]),
+        end = new Date(end_month.split('-')[0], end_month.split('-')[1]);
 
-    if (lastDay > today) {
-        lastDay = today
-    }
+    for (var m = start; m <= end; m.setMonth(m.getMonth() + 1)) {
+        var target_month = formatDate(m);
+        const year = target_month.split('-')[0],
+            month = target_month.split('-')[1] - 1,
+            firstDay = new Date(year, month, 1),
+            lastDay = new Date(year, month + 1, 0),
+            today = new Date();
 
-    for (var d = firstDay; d <= lastDay; d.setDate(d.getDate() + 1)) {
-        preview_url = preview_url_placeholder.replace(new RegExp('{{time}}', 'g'), formatDate(d)),
+        if (lastDay > today) {
+            lastDay = today
+        }
+
+        for (var d = firstDay; d <= lastDay; d.setDate(d.getDate() + 1)) {
+            preview_url = preview_url_placeholder.replace(new RegExp('{{time}}', 'g'), formatDate(d));
             links.push(preview_url);
+        }
     }
 
     return links;
