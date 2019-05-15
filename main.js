@@ -1,4 +1,4 @@
-const casper = require('casper').create({
+var casper = require('casper').create({
     waitTimeout: 5000, // 5s
     verbose: true,
     logLevel: 'error',
@@ -77,11 +77,11 @@ casper.on('run.complete', function () {
 // download
 casper.on('resource.received', function (resource) {
     if ((resource.url.indexOf('exportAllWares.htm?schoolIdstr=') !== -1)) {
-        const url = resource.url, file = resolvefilename(url);
+        var url = resource.url, file = resolvefilename(url);
         this.echo('download url is ' + url);
         this.echo('download file is ' + file);
         try {
-            const download = fs.pathJoin(fs.workingDirectory, 'output', file);
+            var download = fs.pathJoin(fs.workingDirectory, 'output', file);
             this.echo('attempting to download file to ' + download);
             this.download(url, download);
         } catch (e) {
@@ -127,15 +127,15 @@ function resolvepreviewlinks() {
         preview_url = preview_url_placeholder.replace(new RegExp('{{time}}', 'g'), formatDate(d));
         links.push(preview_url);
         return links;
-    }
+    }    
 
-    const start = new Date(start_month.split('-')[0], start_month.split('-')[1]),
+    var start = new Date(start_month.split('-')[0], start_month.split('-')[1]),
         end = new Date(end_month.split('-')[0], end_month.split('-')[1]);
-
+    
     for (var m = start; m <= end; m.setMonth(m.getMonth() + 1)) {
-        var target_month = formatDate(m);
-        const year = target_month.split('-')[0],
-            month = target_month.split('-')[1] - 1,
+        var target_month = formatDate(m),
+            year = target_month.split('-')[0],
+            month = target_month.split('-')[1] - 2,
             firstDay = new Date(year, month, 1),
             lastDay = new Date(year, month + 1, 0),
             today = new Date();
@@ -144,6 +144,9 @@ function resolvepreviewlinks() {
             lastDay = today
         }
 
+        console.log('first day: ' + firstDay);
+        console.log('last day: ' + lastDay);
+        
         for (var d = firstDay; d <= lastDay; d.setDate(d.getDate() + 1)) {
             preview_url = preview_url_placeholder.replace(new RegExp('{{time}}', 'g'), formatDate(d));
             links.push(preview_url);
@@ -158,7 +161,7 @@ function resolvedownloadlink(d) {
 }
 
 function resolvefilename(target_url) {
-    const segments = target_url.split('supplyDateMenu=');
+    var segments = target_url.split('supplyDateMenu=');
     if (segments.length != 2) {
         return '';
     }
